@@ -1,0 +1,178 @@
+$green-dark: #509D56;
+$green-light: #60BC67;
+$sprite-size: 96px;
+
+$bamboo-segment: $green-light;
+$bamboo-joint: $green-dark;
+$bamboo-leaf: $green-dark;
+$bamboo-leaf-light: $green-light;
+$social-icon: $green-light;
+
+.bamboo {
+  font-size: 0;
+  width: 14px;
+  box-sizing: border-box;
+  transform-origin: 50% 100%;
+  filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.25));
+
+  .segment {
+    position: relative;
+    background: $bamboo-segment;
+    width: calc(100% - 6px);
+    height: 80px;
+    margin: auto;
+
+    &:first-child {
+      margin-top: 3px;
+    }
+
+    &:before,
+    &:after {
+      position: absolute;
+      content: "";
+      width: calc(100% + 3px);
+      height: 6px;
+      border-radius: 3px;
+      background: $bamboo-joint;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+    }
+
+    &:before {
+      top: 0%;
+    }
+
+    &:after {
+      top: 100%;
+    }
+
+    .leaf {
+      position: absolute;
+      width: 21px;
+      height: 43px;
+      transform-origin: 50% 100%;
+      bottom: 0;
+
+      &:before {
+        content: "";
+        position: relative;
+        display: block;
+        width: 30px;
+        height: 30px;
+        border-radius: 100% 0;
+        background: $bamboo-leaf;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) rotate(-45deg);
+      }
+
+      &.light {
+        &:before {
+          background: $bamboo-leaf-light;
+        }
+      }
+
+      &.right30,
+      &.right60 {
+        left: -5px;
+      }
+
+      &.right30 {
+        transform: rotate(30deg) scaleX(0.7);
+      }
+
+      &.right60 {
+        transform: rotate(60deg) scaleX(0.7);
+      }
+
+      &.left30,
+      &.left60 {
+        right: -5px;
+      }
+
+      &.left30 {
+        transform: rotate(-30deg) scaleX(0.7);
+      }
+
+      &.left60 {
+        transform: rotate(-60deg) scaleX(0.7);
+      }
+    }
+  }
+}
+
+.panda {
+  position: absolute;
+  bottom: $sprite-size * -0.03125;
+  left: 0;
+  background-image: url('style/panda.png');
+  background-size: (5 * $sprite-size) (8 * $sprite-size);
+  background-position: 0 0;
+  width: $sprite-size;
+  height: $sprite-size;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+  z-index: 5;
+  filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.25));
+  overflow: hidden;
+
+  &.sitting {
+    bottom: $sprite-size * -0.03125;
+    animation: 1s sitting infinite steps(1);
+  }
+
+  &.eating {
+    bottom: $sprite-size * -0.03125;
+    background-position: 0 -200%;
+  }
+
+  &.walking {
+    bottom: $sprite-size * -0.0625;
+    animation: 1s walking infinite steps(1);
+
+    &.left {
+      animation: 1s walking-left infinite steps(1);
+    }
+  }
+}
+
+@keyframes sitting {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: -100% 0;
+  }
+}
+
+@keyframes walking {
+  0% {
+    background-position: 0 -300%;
+  }
+  25% {
+    background-position: -100% -300%;
+  }
+  50% {
+    background-position: 0 -300%;
+  }
+  75% {
+    background-position: -200% -300%;
+  }
+}
+
+@keyframes walking-left {
+  0% {
+    background-position: 0 -500%;
+  }
+  25% {
+    background-position: -100% -500%;
+  }
+  50% {
+    background-position: 0 -500%;
+  }
+  75% {
+    background-position: -200% -500%;
+  }
+}
