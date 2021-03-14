@@ -26,15 +26,8 @@
 <!-- Content -->
 ## Usage
 
-To get started with the pet panda, include the required styling
-(soon:tm: this will be included automatically by the JS script):
-
-```html
-<link href="~pet-panda/src/style/style.scss" rel="stylesheet" />
-```
-
-To then get started with the Panda, include the pet-panda script in your own JavaScript file and
-spawn a new Panda in:
+To get started with the Panda, include the pet-panda script in your own JavaScript file and
+spawn a new Panda in your chosen container:
 
 ```js
 const Panda = require('pet-panda');
@@ -42,8 +35,11 @@ const Panda = require('pet-panda');
 document.addEventListener('DOMContentLoaded', () => {
     new Panda(document.body);
 });
-
 ```
+
+This will automatically include the needed styling to render the Panda and its Bamboo. The world the
+Panda lives in will expand to fill the container that you give it, with the Panda exploring along
+the bottom edge and the Bamboo slowly growing the full height of the world.
 
 <!-- Contributing -->
 ## Contributing

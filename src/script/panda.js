@@ -89,15 +89,7 @@ class Panda {
 
         // Create a fresh world container
         this.world = document.createElement('div');
-        this.world.style.position = 'absolute';
-        this.world.style.top = '0';
-        this.world.style.right = '0';
-        this.world.style.bottom = '0';
-        this.world.style.left = '0';
-        this.world.style.display = 'flex';
-        this.world.style.justifyContent = 'space-evenly';
-        this.world.style.alignItems = 'flex-end';
-        this.world.style.overflow = 'hidden';
+        this.world.className = 'pet-panda-world';
         this.container.appendChild(this.world);
     }
 

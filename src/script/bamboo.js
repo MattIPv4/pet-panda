@@ -5,7 +5,6 @@ class Bamboo {
     /**
      * Create a new Bamboo segment
      * @return {HTMLDivElement}
-     * @private
      */
     static newSegment () {
         const segment = document.createElement('div');
@@ -36,7 +35,6 @@ class Bamboo {
      * @param {Bamboo[]} shoots
      * @param {Boolean} [shortest=false] - Invert the weights to prefer the shortest shoot
      * @return {Bamboo}
-     * @private
      */
     static randomShoot(shoots, shortest = false) {
         // Weight heavily based on shoot size
@@ -66,7 +64,6 @@ class Bamboo {
      * Create a new Bamboo shoot
      * @param {number} minInitialSegments
      * @param {number} maxInitialSegments
-     * @private
      */
     constructor(minInitialSegments, maxInitialSegments) {
         /**
@@ -94,7 +91,6 @@ class Bamboo {
 
     /**
      * Set a random tilt to the bamboo shoot
-     * @private
      */
     setRandomRotation() {
         const hasTilt = Math.random() < 0.5;
@@ -106,7 +102,6 @@ class Bamboo {
      * Grow a new segment on the top of the Bamboo shoot, animated
      * @param {number} [speed=1000] - Duration of the animation in milliseconds
      * @return {Promise<void>}
-     * @private
      */
     async growSegment(speed = 1000) {
         const previousState = this.state;
@@ -139,7 +134,6 @@ class Bamboo {
      * Remove the top segment from the Bamboo shoot, animated
      * @param {number} [speed=1000] - Duration of the animation in milliseconds
      * @return {Promise<void>}
-     * @private
      */
     async removeSegment(speed = 1000) {
         const previousState = this.state;
@@ -168,7 +162,6 @@ class Bamboo {
     /**
      * Remove all segments from the Bamboo shoot, and then grow one new one, animated
      * @return {Promise<void>}
-     * @private
      */
     async removeAllSegments() {
         const previousState = this.state;
@@ -191,7 +184,6 @@ class Bamboo {
     /**
      * The size of the Bamboo shoot, the number of segments it has
      * @return {number}
-     * @private
      */
     get size() {
         return this.element.getElementsByClassName('segment').length;

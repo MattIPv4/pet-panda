@@ -1,10 +1,10 @@
 {
   "name": "pet-panda",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "",
   "main": "src/script/index.js",
   "scripts": {
-    "dev": "parcel src/index.html"
+    "dev": "parcel src/dev/index.html"
   },
   "repository": {
     "type": "git",
