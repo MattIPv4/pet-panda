@@ -1,7 +1,7 @@
 <!-- Source: https://github.com/MattIPv4/template/blob/master/README.md -->
 
 <!-- Title -->
-<h1 align="center" id="pet-pada">
+<h1 align="center" id="pet-panda">
     Pet Panda
 </h1>
 
