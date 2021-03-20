@@ -5,9 +5,7 @@ module.exports = env => ({
     // Set the webpack mode
     mode: env.production ? 'production' : 'development',
     // Use the main source for production builds, use the dev script for development
-    entry: env.production
-        ? path.join(__dirname, 'src', 'script', 'index.js')
-        : path.join(__dirname, 'dev', 'script.js'),
+    entry: path.join(__dirname, env.production ? 'src' : 'dev', 'index.js'),
     // Set our output to always be dist/main.js
     output: {
         filename: 'main.js',

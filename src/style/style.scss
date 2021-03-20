@@ -1,12 +1,18 @@
 $green-dark: #509D56;
 $green-light: #60BC67;
 $sprite-size: 96px;
+$drop-shadow: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.25));
 
 $bamboo-segment: $green-light;
 $bamboo-joint: $green-dark;
 $bamboo-leaf: $green-dark;
 $bamboo-leaf-light: $green-light;
-$social-icon: $green-light;
+$bamboo-leaf-size: 30px;
+$bamboo-width: 14px;
+$bamboo-segment-height: 80px;
+$bamboo-segment-end: 6px;
+$bamboo-segment-padding: 6px;
+$bamboo-border-radius: 3px;
 
 .pet-panda-world {
   position: absolute;
@@ -21,29 +27,29 @@ $social-icon: $green-light;
 
   .bamboo {
     font-size: 0;
-    width: 14px;
+    width: $bamboo-width;
     box-sizing: border-box;
     transform-origin: 50% 100%;
-    filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.25));
+    filter: $drop-shadow;
 
     .segment {
       position: relative;
       background: $bamboo-segment;
-      width: calc(100% - 6px);
-      height: 80px;
+      width: calc(100% - #{$bamboo-segment-padding});
+      height: $bamboo-segment-height;
       margin: auto;
 
       &:first-child {
-        margin-top: 3px;
+        margin-top: $bamboo-segment-end / 2;
       }
 
       &:before,
       &:after {
         position: absolute;
         content: "";
-        width: calc(100% + 3px);
-        height: 6px;
-        border-radius: 3px;
+        width: calc(100% + #{$bamboo-segment-padding / 2});
+        height: $bamboo-segment-end;
+        border-radius: $bamboo-border-radius;
         background: $bamboo-joint;
         left: 50%;
         transform: translate(-50%, -50%);
@@ -51,7 +57,7 @@ $social-icon: $green-light;
       }
 
       &:before {
-        top: 0%;
+        top: 0;
       }
 
       &:after {
@@ -60,22 +66,16 @@ $social-icon: $green-light;
 
       .leaf {
         position: absolute;
-        width: 21px;
-        height: 43px;
-        transform-origin: 50% 100%;
         bottom: 0;
 
         &:before {
           content: "";
           position: relative;
           display: block;
-          width: 30px;
-          height: 30px;
-          border-radius: 100% 0;
+          width: $bamboo-leaf-size;
+          height: $bamboo-leaf-size;
+          border-radius: 100%;
           background: $bamboo-leaf;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%) rotate(-45deg);
         }
 
         &.light {
@@ -86,28 +86,38 @@ $social-icon: $green-light;
 
         &.right30,
         &.right60 {
-          left: -5px;
+          right: -$bamboo-leaf-size + $bamboo-segment-padding;
+          transform-origin: 0 100%;
+
+          &:before {
+            border-radius: 100% 0;
+          }
         }
 
         &.right30 {
-          transform: rotate(30deg) scaleX(0.7);
+          transform: rotate(0);
         }
 
         &.right60 {
-          transform: rotate(60deg) scaleX(0.7);
+          transform: rotate(30deg);
         }
 
         &.left30,
         &.left60 {
-          right: -5px;
+          left: -$bamboo-leaf-size + $bamboo-segment-padding;
+          transform-origin: 100% 100%;
+
+          &:before {
+            border-radius: 0 100%;
+          }
         }
 
         &.left30 {
-          transform: rotate(-30deg) scaleX(0.7);
+          transform: rotate(0);
         }
 
         &.left60 {
-          transform: rotate(-60deg) scaleX(0.7);
+          transform: rotate(-30deg);
         }
       }
     }
@@ -126,7 +136,7 @@ $social-icon: $green-light;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
     z-index: 5;
-    filter: drop-shadow(4px 4px 0 rgba(0, 0, 0, 0.25));
+    filter: $drop-shadow;
     overflow: hidden;
 
     &.sitting {
