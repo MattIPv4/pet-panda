@@ -56,6 +56,7 @@ Supported options for the object passed as the second argument are as follows:
 
 - `worldScale` -- Defaults to 1, a float value for the scale of the Panda's world in the container.
 - `shootCount` -- Defaults to 5, an integer number of Bamboo shoots to spawn in the Panda's world.
+- `shootHeight` -- Defaults to 80, a float value for the base Bamboo segment height (will be random within 25%).
 - `debugMessages` -- Defaults to false, a toggle to enable state debug messages for the Panda.
 
 <!-- Contributing -->

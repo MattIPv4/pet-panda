@@ -9,6 +9,7 @@ const pixelsPerSecond = 24;
  * @property {boolean} [debugMessages=false]
  * @property {number} [worldScale=1]
  * @property {number} [shootCount=5]
+ * @property {number} [shootHeight=80]
  */
 
 class Panda {
@@ -21,6 +22,7 @@ class Panda {
         // Cleanup options
         options.worldScale = cleanFloat(options.worldScale, 1);
         options.shootCount = cleanInt(options.shootCount, 5);
+        options.shootHeight = cleanFloat(options.shootHeight, 80);
         options.debugMessages = !!options.debugMessages;
 
         /**
@@ -43,6 +45,13 @@ class Panda {
          * @private
          */
         this.worldScale = options.worldScale;
+
+        /**
+         * The base height of the Bamboo shoots, will be random within 25% of this
+         * @type {number}
+         * @private
+         */
+        this.shootHeight = options.shootHeight;
 
         /**
          * The wrapper the will house the world for the Panda
@@ -154,7 +163,7 @@ class Panda {
         // Create the shoots
         this.shoots = [];
         for (let i = 0; i < shootCount; i++) {
-            const shoot = new Bamboo(1, 3);
+            const shoot = new Bamboo(this.shootHeight, 1, 3);
             this.shoots.push(shoot);
             this.world.appendChild(shoot.element);
         }
