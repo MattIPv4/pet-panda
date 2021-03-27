@@ -10,6 +10,9 @@
 
 <!-- Badges -->
 <p align="center">
+    <a href="https://www.npmjs.com/package/pet-panda" target="_blank">
+        <img src="https://img.shields.io/npm/v/pet-panda?style=flat-square" alt="NPM Package Version"/>
+    </a>
     <a href="https://github.com/users/MattIPv4/sponsorship" target="_blank">
         <img src="https://img.shields.io/badge/GitHub%20Sponsors-MattIPv4-blue.svg?style=flat-square" alt="GitHub Sponsors"/>
     </a>
