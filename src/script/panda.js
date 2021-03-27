@@ -1,22 +1,55 @@
 const rwc = require('random-weighted-choice');
-const { randomInt, immediateDOM, promiseDelay } = require('./utils');
+const { cleanFloat, cleanInt, randomInt, immediateDOM, promiseDelay } = require('./utils');
 const Bamboo = require('./bamboo');
 
 const pixelsPerSecond = 24;
 
+/**
+ * @typedef PandaOptions
+ * @property {boolean} [debugMessages=false]
+ * @property {number} [worldScale=1]
+ * @property {number} [shootCount=5]
+ */
+
 class Panda {
     /**
-     * Spawn a new Panda in a given container element with a set number of Bamboo shoots
+     * Spawn a new Panda in a given container element
      * @param {HTMLElement} element
-     * @param {number} [shootCount=5]
+     * @param {PandaOptions} [options={}]
      */
-    constructor(element, shootCount = 5) {
+    constructor(element, options = {}) {
+        // Cleanup options
+        options.worldScale = cleanFloat(options.worldScale, 1);
+        options.shootCount = cleanInt(options.shootCount, 5);
+        options.debugMessages = !!options.debugMessages;
+
         /**
-         * The container in which the Panda's world will reside
+         * If debug messages should be logged to the browser console for the Panda state
+         * @type {boolean}
+         * @private
+         */
+        this.debugMessages = options.debugMessages
+
+        /**
+         * The container provided by the user in which the Panda's world will reside
          * @type {HTMLElement}
          * @private
          */
         this.container = element;
+
+        /**
+         * The scale of the Panda's world (larger number to fit a larger world in a given container)
+         * @type {number}
+         * @private
+         */
+        this.worldScale = options.worldScale;
+
+        /**
+         * The wrapper the will house the world for the Panda
+         * @type {?HTMLDivElement}
+         * @private
+         */
+        this.wrapper = null;
 
         /**
          * The world in which the Panda and the Bamboo will reside
@@ -64,7 +97,7 @@ class Panda {
          * @private
          */
         this.shoots = [];
-        this.createBambooShoots(shootCount);
+        this.createBambooShoots(options.shootCount);
 
         /**
          * The DOM representation of the Panda itself
@@ -85,12 +118,28 @@ class Panda {
      */
     createWorld() {
         // Remove any existing world
-        if (this.world) this.container.removeChild(this.world);
+        if (this.world) this.wrapper.removeChild(this.world);
+
+        // Remove any existing wrapper
+        if (this.wrapper) this.container.removeChild(this.wrapper);
+
+        // Create a fresh wrapper
+        this.wrapper = document.createElement('div');
+        this.wrapper.className = 'pet-panda-wrapper';
+        this.container.appendChild(this.wrapper);
+
+        // Set the scaling
+        const sizing = `${this.worldScale * 100}%`;
+        this.wrapper.style.width = sizing;
+        this.wrapper.style.maxWidth = sizing;
+        this.wrapper.style.height = sizing;
+        this.wrapper.style.maxHeight = sizing;
+        this.wrapper.style.transform = `scale(${1 / this.worldScale})`;
 
         // Create a fresh world container
         this.world = document.createElement('div');
         this.world.className = 'pet-panda-world';
-        this.container.appendChild(this.world);
+        this.wrapper.appendChild(this.world);
     }
 
     /**
@@ -219,7 +268,13 @@ class Panda {
      * @private
      */
     doAction() {
-        console.log(this.state, this.hunger, this.tiredness, this.boredom);
+        if (this.debugMessages) {
+            console.log('[Pet Panda]',
+                'State:', this.state,
+                'Hunger:', this.hunger,
+                'Tiredness:', this.tiredness,
+                'Boredom:', this.boredom);
+        }
 
         // If doing something, don't do anything else
         if (this.state !== 'idle') return Promise.resolve();
@@ -304,10 +359,10 @@ class Panda {
      * @private
      */
     walkToRandom() {
-        const { left: worldLeft, width: worldWidth } = this.world.getBoundingClientRect();
+        const worldWidth = this.world.getBoundingClientRect().width;
         const pandaWidth = this.pandaElement.getBoundingClientRect().width;
 
-        const newLeft = randomInt(worldLeft + pandaWidth, worldLeft + worldWidth - pandaWidth);
+        const newLeft = randomInt(pandaWidth, worldWidth - pandaWidth);
         return this.walkToPosition(newLeft);
     }
 
@@ -328,7 +383,7 @@ class Panda {
 
         // Calculate how long the walk will take
         const distance = Math.abs(oldLeft - newLeft);
-        const time = distance / pixelsPerSecond;
+        const time = distance / pixelsPerSecond * this.worldScale;
 
         // Apply the correct transition and animation
         this.pandaElement.style.transition = `left ${time}s linear`;
@@ -336,7 +391,7 @@ class Panda {
 
         // Tell the Panda to walk
         await immediateDOM(() => {
-            this.pandaElement.style.left = `${newLeft}px`;
+            this.pandaElement.style.left = `${newLeft * this.worldScale}px`;
         });
 
         // Wait for the walk to complete

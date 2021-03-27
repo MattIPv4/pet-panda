@@ -14,147 +14,167 @@ $bamboo-segment-end: 6px;
 $bamboo-segment-padding: 6px;
 $bamboo-border-radius: 3px;
 
-.pet-panda-world {
+$world-scale: 1;
+
+.pet-panda-wrapper {
   position: absolute;
   top: 0;
   left: 0;
   bottom: 0;
   right: 0;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: flex-end;
+  width: $world-scale * 100%;
+  max-width: $world-scale * 100%;
+  height: $world-scale * 100%;
+  max-height: $world-scale * 100%;
+  transform: scale(1 / $world-scale);
+  transform-origin: 0 0;
   overflow: hidden;
 
-  .bamboo {
-    font-size: 0;
-    width: $bamboo-width;
-    box-sizing: border-box;
-    transform-origin: 50% 100%;
-    filter: $drop-shadow;
-
-    .segment {
-      position: relative;
-      background: $bamboo-segment;
-      width: calc(100% - #{$bamboo-segment-padding});
-      height: $bamboo-segment-height;
-      margin: auto;
-
-      &:first-child {
-        margin-top: $bamboo-segment-end / 2;
-      }
-
-      &:before,
-      &:after {
-        position: absolute;
-        content: "";
-        width: calc(100% + #{$bamboo-segment-padding / 2});
-        height: $bamboo-segment-end;
-        border-radius: $bamboo-border-radius;
-        background: $bamboo-joint;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 1;
-      }
-
-      &:before {
-        top: 0;
-      }
-
-      &:after {
-        top: 100%;
-      }
-
-      .leaf {
-        position: absolute;
-        bottom: 0;
-
-        &:before {
-          content: "";
-          position: relative;
-          display: block;
-          width: $bamboo-leaf-size;
-          height: $bamboo-leaf-size;
-          border-radius: 100%;
-          background: $bamboo-leaf;
-        }
-
-        &.light {
-          &:before {
-            background: $bamboo-leaf-light;
-          }
-        }
-
-        &.right30,
-        &.right60 {
-          right: -$bamboo-leaf-size + $bamboo-segment-padding;
-          transform-origin: 0 100%;
-
-          &:before {
-            border-radius: 100% 0;
-          }
-        }
-
-        &.right30 {
-          transform: rotate(0);
-        }
-
-        &.right60 {
-          transform: rotate(30deg);
-        }
-
-        &.left30,
-        &.left60 {
-          left: -$bamboo-leaf-size + $bamboo-segment-padding;
-          transform-origin: 100% 100%;
-
-          &:before {
-            border-radius: 0 100%;
-          }
-        }
-
-        &.left30 {
-          transform: rotate(0);
-        }
-
-        &.left60 {
-          transform: rotate(-30deg);
-        }
-      }
-    }
-  }
-
-  .panda {
+  .pet-panda-world {
     position: absolute;
-    bottom: $sprite-size * -0.03125;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
     left: 0;
-    background-image: url('panda.png');
-    background-size: (5 * $sprite-size) (8 * $sprite-size);
-    background-position: 0 0;
-    width: $sprite-size;
-    height: $sprite-size;
-    image-rendering: pixelated;
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
-    z-index: 5;
-    filter: $drop-shadow;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-end;
     overflow: hidden;
 
-    &.sitting {
-      bottom: $sprite-size * -0.03125;
-      animation: 1s pet-panda-sitting infinite steps(1);
+    .bamboo {
+      font-size: 0;
+      width: $bamboo-width;
+      box-sizing: border-box;
+      transform-origin: 50% 100%;
+      filter: $drop-shadow;
+
+      .segment {
+        position: relative;
+        background: $bamboo-segment;
+        width: calc(100% - #{$bamboo-segment-padding});
+        height: $bamboo-segment-height;
+        margin: auto;
+
+        &:first-child {
+          margin-top: $bamboo-segment-end / 2;
+        }
+
+        &:before,
+        &:after {
+          position: absolute;
+          content: "";
+          width: calc(100% + #{$bamboo-segment-padding / 2});
+          height: $bamboo-segment-end;
+          border-radius: $bamboo-border-radius;
+          background: $bamboo-joint;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          z-index: 1;
+        }
+
+        &:before {
+          top: 0;
+        }
+
+        &:after {
+          top: 100%;
+        }
+
+        .leaf {
+          position: absolute;
+          bottom: 0;
+
+          &:before {
+            content: "";
+            position: relative;
+            display: block;
+            width: $bamboo-leaf-size;
+            height: $bamboo-leaf-size;
+            border-radius: 100%;
+            background: $bamboo-leaf;
+          }
+
+          &.light {
+            &:before {
+              background: $bamboo-leaf-light;
+            }
+          }
+
+          &.right30,
+          &.right60 {
+            right: -$bamboo-leaf-size + $bamboo-segment-padding;
+            transform-origin: 0 100%;
+
+            &:before {
+              border-radius: 100% 0;
+            }
+          }
+
+          &.right30 {
+            transform: rotate(0);
+          }
+
+          &.right60 {
+            transform: rotate(30deg);
+          }
+
+          &.left30,
+          &.left60 {
+            left: -$bamboo-leaf-size + $bamboo-segment-padding;
+            transform-origin: 100% 100%;
+
+            &:before {
+              border-radius: 0 100%;
+            }
+          }
+
+          &.left30 {
+            transform: rotate(0);
+          }
+
+          &.left60 {
+            transform: rotate(-30deg);
+          }
+        }
+      }
     }
 
-    &.eating {
+    .panda {
+      position: absolute;
       bottom: $sprite-size * -0.03125;
-      background-position: 0 -200%;
-    }
+      left: 0;
+      background-image: url('panda.png');
+      background-size: (5 * $sprite-size) (8 * $sprite-size);
+      background-position: 0 0;
+      width: $sprite-size;
+      height: $sprite-size;
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+      z-index: 5;
+      filter: $drop-shadow;
+      overflow: hidden;
 
-    &.walking {
-      bottom: $sprite-size * -0.0625;
-      animation: 1s pet-panda-walking infinite steps(1);
+      &.sitting {
+        bottom: $sprite-size * -0.03125;
+        animation: 1s pet-panda-sitting infinite steps(1);
+      }
 
-      &.left {
-        animation: 1s pet-panda-walking-left infinite steps(1);
+      &.eating {
+        bottom: $sprite-size * -0.03125;
+        background-position: 0 -200%;
+      }
+
+      &.walking {
+        bottom: $sprite-size * -0.0625;
+        animation: 1s pet-panda-walking infinite steps(1);
+
+        &.left {
+          animation: 1s pet-panda-walking-left infinite steps(1);
+        }
       }
     }
   }

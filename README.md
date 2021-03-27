@@ -41,6 +41,23 @@ This will automatically include the needed styling to render the Panda and its B
 Panda lives in will expand to fill the container that you give it, with the Panda exploring along
 the bottom edge and the Bamboo slowly growing the full height of the world.
 
+The scale of the Panda's world can also be customised, such as setting the Panda's world to be
+zoomed out at 2x the world size in the same given container:
+
+```js
+const Panda = require('pet-panda');
+
+document.addEventListener('DOMContentLoaded', () => {
+    new Panda(document.body, { worldScale: 2 });
+});
+```
+
+Supported options for the object passed as the second argument are as follows:
+
+- `worldScale` -- Defaults to 1, a float value for the scale of the Panda's world in the container.
+- `shootCount` -- Defaults to 5, an integer number of Bamboo shoots to spawn in the Panda's world.
+- `debugMessages` -- Defaults to false, a toggle to enable state debug messages for the Panda.
+
 <!-- Contributing -->
 ## Contributing
 

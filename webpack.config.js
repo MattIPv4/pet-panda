@@ -14,7 +14,7 @@ module.exports = env => ({
     },
     // Load the html plugin when in development
     plugins: [
-        !env.production && new HtmlWebpackPlugin({ title: 'Pet Panda' }),
+        !env.production && new HtmlWebpackPlugin({ template: path.join(__dirname, 'dev', 'index.html') }),
     ].filter(x => !!x),
     // Include source maps when in development
     devtool: !env.production && 'inline-source-map',
