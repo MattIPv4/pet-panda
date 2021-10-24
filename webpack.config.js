@@ -11,6 +11,8 @@ module.exports = env => ({
         filename: 'main.js',
         path: path.resolve(__dirname, 'dist'),
         clean: true,
+        // Ensure the exports are preserved for production
+        library: env.production ? { type: 'commonjs2' } : undefined,
     },
     // Load the html plugin when in development
     plugins: [
@@ -18,10 +20,7 @@ module.exports = env => ({
     ].filter(x => !!x),
     // Include source maps when in development
     devtool: !env.production && 'inline-source-map',
-    // The dev server will serve our bundled file from dist
-    devServer: {
-        contentBase: path.resolve(__dirname, 'dist'),
-    },
+    // Set how we handle file types
     module: {
         rules: [
             // Our scss styling needs to loaded
