@@ -1,5 +1,5 @@
 const rwc = require('random-weighted-choice');
-const { randomInt, immediateDOM, promiseDelay } = require('./utils');
+const { randomInt, immediateDOM, promiseDelay, isObject } = require('./utils');
 
 class Bamboo {
     /**
@@ -37,16 +37,24 @@ class Bamboo {
      * @param {number} baseHeight
      * @param {number} minInitialSegments
      * @param {number} maxInitialSegments
+     * @param {Object} [opts={}]
+     * @param {number} [opts.rotation]
      */
-    constructor(baseHeight, minInitialSegments, maxInitialSegments) {
+    constructor(baseHeight, minInitialSegments, maxInitialSegments, opts = {}) {
+        /**
+         * Options for controlling the bamboo growth
+         * @type {Object}
+         */
+        this.options = isObject(opts) ? opts : {};
+
         /**
          * The DOM element for the shoot, containing the segments
          * @type {HTMLDivElement}
-         * @private
+         * @readonly
          */
         this.element = document.createElement('div');
-        this.element.className = 'bamboo';
-        this.setRandomRotation();
+        this.element.className = 'pet-panda-bamboo';
+        this.setRotation(this.options.rotation ?? this.randomRotation());
 
         /**
          * Base height of the shoots, will be random within 25% of this
@@ -77,17 +85,28 @@ class Bamboo {
     }
 
     /**
-     * Set a random tilt to the bamboo shoot
+     * Get a random tilt value for the bamboo shoot
+     * @return {number}
+     * @private
      */
-    setRandomRotation() {
-        const hasTilt = Math.random() < 0.5;
-        const leftTilt = Math.random() < 0.5;
-        this.element.style.transform = hasTilt ? `rotate(${leftTilt ? '-' : ''}${randomInt(0, 4)}deg` : '';
+    randomRotation() {
+        if (Math.random() < 0.5) return 0;
+        return (Math.random() < 0.5 ? 1 : -1) * randomInt(0, 4);
+    }
+
+    /**
+     * Set the rotation for the bamboo shoot
+     * @param {number} deg
+     * @private
+     */
+    setRotation (deg) {
+        this.element.style.transform = deg ? `rotate(${deg}deg)` : '';
     }
 
     /**
      * Create a new Bamboo segment and store the height
      * @return {HTMLDivElement}
+     * @private
      */
     newSegment () {
         // Decide the height
@@ -201,7 +220,7 @@ class Bamboo {
         }
 
         // Set rotation and grow a new segment
-        this.setRandomRotation();
+        this.setRotation(this.options.rotation ?? this.randomRotation());
         await this.growSegment();
 
         // Reset our state
@@ -211,6 +230,7 @@ class Bamboo {
     /**
      * The size of the Bamboo shoot
      * @return {number}
+     * @readonly
      */
     get size() {
         return this.segmentSizes.reduce((acc, item) => acc + item, 0);
