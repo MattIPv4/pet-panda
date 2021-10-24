@@ -12,7 +12,7 @@ module.exports = env => ({
         path: path.resolve(__dirname, 'dist'),
         clean: true,
         // Ensure the exports are preserved for production
-        library: env.production ? { type: 'commonjs2' } : undefined,
+        library: env.production ? { name: 'petPanda', type: 'umd' } : undefined,
     },
     // Load the html plugin when in development
     plugins: [
@@ -31,7 +31,7 @@ module.exports = env => ({
             // The sprite art can become a base64 data url
             {
                 test: /\.png$/i,
-                use: [ 'url-loader' ],
+                type: 'asset/inline'
             },
         ],
     },
