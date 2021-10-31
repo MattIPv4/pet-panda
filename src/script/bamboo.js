@@ -124,31 +124,33 @@ class Bamboo {
         segment.appendChild(ring);
 
         // Decide if we should have a leaf
-        const hasLeaf = Math.random() < 0.2;
-        if (!hasLeaf) return segment;
+        if (Math.random() < 0.8) return segment;
 
-        // Decide if we have two leaves, and decide which way around the leaves are
-        const hasSecondLeaf = Math.random() < 0.3;
+        // Create the first leaf, on the right or left
         const leftLeaf = Math.random() < 0.5;
+        segment.appendChild(this.newLeaf(segmentHeight, leftLeaf));
 
-        // TODO: Minor random variation in rotation
-        // TODO: Minor random variation in height from bottom
-
-        // Create our first leaf
-        const firstLeaf = document.createElement('div');
-        firstLeaf.className = `leaf ${leftLeaf ? 'left' : ''}`;
-        firstLeaf.style.transform = `rotate(${leftLeaf ? '-60deg' : '50deg'})`;
-        segment.appendChild(firstLeaf);
-
-        // Create the second leaf if needed
-        if (hasSecondLeaf) {
-            const secondLeaf = document.createElement('div');
-            secondLeaf.className = `leaf ${leftLeaf ? '' : 'left'}`;
-            secondLeaf.style.transform = `rotate(${leftLeaf ? '50deg' : '-60deg'})`;
-            segment.appendChild(secondLeaf);
-        }
+        // Decide if we should have a second leaf
+        if (Math.random() < 0.3) segment.appendChild(this.newLeaf(segmentHeight, !leftLeaf));
 
         return segment;
+    }
+
+    /**
+     * Create a new leaf to be added to a Bamboo segment
+     * @param {number} height - The height of the Bamboo segment the leaf will be on
+     * @param {boolean} [left=false] - If the leaf will be on the left side of the segment
+     * @return {HTMLDivElement}
+     * @private
+     */
+    newLeaf (height, left = false) {
+        const rotation = left ? randomInt(-75, -55) : randomInt(45, 65);
+        const bottom = randomInt(height * 0.05, height * 0.4);
+        const leaf = document.createElement('div');
+        leaf.className = `leaf ${left ? 'left' : ''}`;
+        leaf.style.transform = `rotate(${rotation}deg)`;
+        leaf.style.bottom = `${bottom}px`;
+        return leaf;
     }
 
     /**
