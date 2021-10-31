@@ -12,7 +12,7 @@ module.exports.randomInt = (min, max) => Math.floor(Math.random() * (max + 1 - m
 
 module.exports.promiseDelay = delay => new Promise((resolve) => setTimeout(resolve, delay));
 
-module.exports.immediateDOM = (callback) => new Promise((resolve) => {
+module.exports.immediateDOM = callback => new Promise((resolve) => {
     window.requestAnimationFrame(() => {
         window.requestAnimationFrame(() => {
             callback();
@@ -20,3 +20,5 @@ module.exports.immediateDOM = (callback) => new Promise((resolve) => {
         });
     });
 });
+
+module.exports.isObject = val => typeof val === 'object' && !Array.isArray(val) && val !== null;
