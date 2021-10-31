@@ -32,13 +32,13 @@
 
     .panda {
       position: absolute;
-      bottom: $sprite-size * -0.03125;
+      bottom: $panda-sprite-size * -0.03125;
       left: 0;
       background-image: url('panda.png');
-      background-size: (5 * $sprite-size) (8 * $sprite-size);
+      background-size: (5 * $panda-sprite-size) (8 * $panda-sprite-size);
       background-position: 0 0;
-      width: $sprite-size;
-      height: $sprite-size;
+      width: $panda-sprite-size;
+      height: $panda-sprite-size;
       image-rendering: pixelated;
       image-rendering: -moz-crisp-edges;
       image-rendering: crisp-edges;
@@ -47,17 +47,17 @@
       overflow: hidden;
 
       &.sitting {
-        bottom: $sprite-size * -0.03125;
+        bottom: $panda-sprite-size * -0.03125;
         animation: 1s pet-panda-sitting infinite steps(1);
       }
 
       &.eating {
-        bottom: $sprite-size * -0.03125;
+        bottom: $panda-sprite-size * -0.03125;
         background-position: 0 -200%;
       }
 
       &.walking {
-        bottom: $sprite-size * -0.0625;
+        bottom: $panda-sprite-size * -0.0625;
         animation: 1s pet-panda-walking infinite steps(1);
 
         &.left {

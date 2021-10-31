@@ -118,25 +118,33 @@ class Bamboo {
         segment.className = 'segment';
         segment.style.height = `${segmentHeight}px`;
 
+        // Add the ring
+        const ring = document.createElement('div');
+        ring.className = 'ring';
+        segment.appendChild(ring);
+
         // Decide if we should have a leaf
         const hasLeaf = Math.random() < 0.2;
         if (!hasLeaf) return segment;
 
-        // Decide if we have two leaves, and what leaf types they are
+        // Decide if we have two leaves, and decide which way around the leaves are
         const hasSecondLeaf = Math.random() < 0.3;
-        const lightLeaf = Math.random() < 0.5;
         const leftLeaf = Math.random() < 0.5;
+
+        // TODO: Minor random variation in rotation
+        // TODO: Minor random variation in height from bottom
 
         // Create our first leaf
         const firstLeaf = document.createElement('div');
-        firstLeaf.className = `leaf ${leftLeaf ? 'left' : 'right'}30${hasSecondLeaf || lightLeaf ? ' light' : ''}`;
+        firstLeaf.className = `leaf ${leftLeaf ? 'left' : ''}`;
+        firstLeaf.style.transform = `rotate(${leftLeaf ? '-60deg' : '50deg'})`;
         segment.appendChild(firstLeaf);
 
         // Create the second leaf if needed
         if (hasSecondLeaf) {
-            const sameSide = Math.random() < 0.8;
             const secondLeaf = document.createElement('div');
-            secondLeaf.className = `leaf ${sameSide && leftLeaf ? 'left' : 'right'}60`;
+            secondLeaf.className = `leaf ${leftLeaf ? '' : 'left'}`;
+            secondLeaf.style.transform = `rotate(${leftLeaf ? '50deg' : '-60deg'})`;
             segment.appendChild(secondLeaf);
         }
 
