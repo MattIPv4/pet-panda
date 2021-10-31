@@ -1,0 +1,99 @@
+@import 'variables';
+
+.pet-panda-bamboo {
+  font-size: 0;
+  width: $bamboo-width;
+  box-sizing: border-box;
+  transform-origin: 50% 100%;
+  filter: $drop-shadow;
+
+  .segment {
+    position: relative;
+    background: $bamboo-segment;
+    width: calc(100% - #{$bamboo-segment-padding});
+    height: $bamboo-segment-height;
+    margin: auto;
+
+    &:first-child {
+      margin-top: $bamboo-segment-end * 0.5;
+    }
+
+    &:before,
+    &:after {
+      position: absolute;
+      content: "";
+      width: calc(100% + #{$bamboo-segment-padding * 0.5});
+      height: $bamboo-segment-end;
+      border-radius: $bamboo-border-radius;
+      background: $bamboo-joint;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+    }
+
+    &:before {
+      top: 0;
+    }
+
+    &:after {
+      top: 100%;
+    }
+
+    .leaf {
+      position: absolute;
+      bottom: 0;
+
+      &:before {
+        content: "";
+        position: relative;
+        display: block;
+        width: $bamboo-leaf-size;
+        height: $bamboo-leaf-size;
+        border-radius: 100%;
+        background: $bamboo-leaf;
+      }
+
+      &.light {
+        &:before {
+          background: $bamboo-leaf-light;
+        }
+      }
+
+      &.right30,
+      &.right60 {
+        right: -$bamboo-leaf-size + $bamboo-segment-padding;
+        transform-origin: 0 100%;
+
+        &:before {
+          border-radius: 100% 0;
+        }
+      }
+
+      &.right30 {
+        transform: rotate(0);
+      }
+
+      &.right60 {
+        transform: rotate(30deg);
+      }
+
+      &.left30,
+      &.left60 {
+        left: -$bamboo-leaf-size + $bamboo-segment-padding;
+        transform-origin: 100% 100%;
+
+        &:before {
+          border-radius: 0 100%;
+        }
+      }
+
+      &.left30 {
+        transform: rotate(0);
+      }
+
+      &.left60 {
+        transform: rotate(-30deg);
+      }
+    }
+  }
+}
