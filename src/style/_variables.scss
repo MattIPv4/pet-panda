@@ -1,0 +1,24 @@
+$green-dark: #509D56;
+$green-light: #60BC67;
+$brown: #AF6538;
+
+$world-scale: 1;
+$panda-sprite-size: 96px;
+
+$pixel: 3px;
+$drop-shadow: drop-shadow($pixel $pixel 0 rgba(0, 0, 0, 0.25));
+
+$shoot-color: $green-dark;
+$shoot-width: $pixel * 6;
+$shoot-height: $pixel * 30;
+
+$shoot-joint-top: $pixel * 2;
+$shoot-joint-height: $pixel * 2;
+$shoot-joint-width: $shoot-width + $pixel * 2;
+
+$shoot-leaf-width: $pixel * 8;
+$shoot-leaf-height: $pixel * 12;
+
+$shoot-stalk-width: $pixel * 2;
+$shoot-stalk-height: $pixel * 7;
+$shoot-stalk-color: mix($shoot-color, $brown, 25%);

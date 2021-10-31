@@ -1,0 +1,108 @@
+@use 'sass:math';
+
+@import 'variables';
+
+.pet-panda-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: $world-scale * 100%;
+  max-width: $world-scale * 100%;
+  height: $world-scale * 100%;
+  max-height: $world-scale * 100%;
+  transform: scale(math.div(1, $world-scale));
+  transform-origin: 0 0;
+  overflow: hidden;
+
+  .pet-panda-world {
+    position: absolute;
+    width: 100%;
+    max-width: 100%;
+    height: 100%;
+    max-height: 100%;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: flex-end;
+    overflow: hidden;
+
+    .panda {
+      position: absolute;
+      bottom: $panda-sprite-size * -0.03125;
+      left: 0;
+      background-image: url('panda.png');
+      background-size: (5 * $panda-sprite-size) (8 * $panda-sprite-size);
+      background-position: 0 0;
+      width: $panda-sprite-size;
+      height: $panda-sprite-size;
+      image-rendering: pixelated;
+      image-rendering: -moz-crisp-edges;
+      image-rendering: crisp-edges;
+      z-index: 5;
+      filter: $drop-shadow;
+      overflow: hidden;
+
+      &.sitting {
+        bottom: $panda-sprite-size * -0.03125;
+        animation: 1s pet-panda-sitting infinite steps(1);
+      }
+
+      &.eating {
+        bottom: $panda-sprite-size * -0.03125;
+        background-position: 0 -200%;
+      }
+
+      &.walking {
+        bottom: $panda-sprite-size * -0.0625;
+        animation: 1s pet-panda-walking infinite steps(1);
+
+        &.left {
+          animation: 1s pet-panda-walking-left infinite steps(1);
+        }
+      }
+    }
+  }
+}
+
+@keyframes pet-panda-sitting {
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: -100% 0;
+  }
+}
+
+@keyframes pet-panda-walking {
+  0% {
+    background-position: 0 -300%;
+  }
+  25% {
+    background-position: -100% -300%;
+  }
+  50% {
+    background-position: 0 -300%;
+  }
+  75% {
+    background-position: -200% -300%;
+  }
+}
+
+@keyframes pet-panda-walking-left {
+  0% {
+    background-position: 0 -500%;
+  }
+  25% {
+    background-position: -100% -500%;
+  }
+  50% {
+    background-position: 0 -500%;
+  }
+  75% {
+    background-position: -200% -500%;
+  }
+}

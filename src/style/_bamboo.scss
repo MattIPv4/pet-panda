@@ -1,0 +1,126 @@
+@import 'variables';
+
+.pet-panda-bamboo {
+  font-size: 0;
+  width: $shoot-width;
+  box-sizing: border-box;
+  transform-origin: 50% 100%;
+  filter: $drop-shadow;
+
+  .segment {
+    position: relative;
+    width: $shoot-width;
+    height: $shoot-height;
+    background: $shoot-color;
+    box-shadow: inset $pixel 0 0 0 rgba(255, 255, 255, 0.2),
+      inset $pixel * -2 0 0 0 rgba(0, 0, 0, 0.2),
+      inset $pixel * -1 0 0 0 rgba(0, 0, 0, 0.2),
+      0 $pixel * 2 0 0 $shoot-color;
+
+    &::before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: $pixel * 8;
+      left: $pixel;
+      height: $pixel * 4;
+      width: $pixel;
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    &::after {
+      content: '';
+      display: block;
+      position: absolute;
+      bottom: $pixel * 2;
+      right: $pixel;
+      height: $pixel * 2;
+      width: $pixel;
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .ring {
+      position: absolute;
+      top: $shoot-joint-top;
+      left: ($shoot-width - $shoot-joint-width) * 0.5;
+      width: $shoot-joint-width;
+      height: $shoot-joint-height;
+      background: $shoot-color;
+      box-shadow: inset 0 $pixel 0 0 rgba(255, 255, 255, 0.2),
+        inset 0 $pixel * 2 0 0 rgba(255, 255, 255, 0.2),
+        inset $pixel * -2 0 0 0 rgba(0, 0, 0, 0.2),
+        inset $pixel * -1 0 0 0 rgba(0, 0, 0, 0.2);
+
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        top: $shoot-joint-height;
+        left: ($shoot-joint-width - $shoot-width) * 0.5;
+        width: $shoot-width;
+        height: $pixel;
+        background: rgba(0, 0, 0, 0.2);
+      }
+    }
+
+    .leaf {
+      position: absolute;
+      left: $shoot-width * 0.5 - $shoot-stalk-width * 0.5;
+      bottom: $pixel * 2;
+      z-index: -1;
+      background: $shoot-stalk-color;
+      width: $shoot-stalk-width;
+      height: $shoot-stalk-height;
+      transform-origin: 50% 100%;
+      box-shadow: inset $pixel * -1 0 0 0 rgba(0, 0, 0, 0.2);
+
+      &.left {
+        box-shadow: inset $pixel 0 0 0 rgba(0, 0, 0, 0.2);
+
+        &::before,
+        &::after {
+          left: $shoot-stalk-width * 0.5;
+          box-shadow: inset $pixel * -1 0 0 0 rgba(255, 255, 255, 0.2),
+            inset $pixel * 2 0 0 0 rgba(0, 0, 0, 0.2),
+            inset $pixel * 1 0 0 0 rgba(0, 0, 0, 0.2);
+        }
+
+        &::before {
+          transform: rotate(-20deg);
+        }
+
+        &::after {
+          transform: rotate(-80deg);
+        }
+      }
+
+      &::before,
+      &::after {
+        position: absolute;
+        bottom: $shoot-stalk-height - $pixel;
+        left: $shoot-stalk-width * 0.25;
+        content: '';
+        display: block;
+        transform-origin: 0 100%;
+        background: $shoot-color;
+        box-shadow: inset $pixel 0 0 0 rgba(255, 255, 255, 0.2),
+          inset $pixel * -2 0 0 0 rgba(0, 0, 0, 0.2),
+          inset $pixel * -1 0 0 0 rgba(0, 0, 0, 0.2);
+      }
+
+      &::before {
+        transform: rotate(-40deg);
+        width: $shoot-leaf-width;
+        height: $shoot-leaf-height;
+        border-radius: #{$shoot-leaf-width} 0 / #{$shoot-leaf-height} 0;
+      }
+
+      &::after {
+        transform: rotate(20deg);
+        width: $shoot-leaf-width * 0.5;
+        height: $shoot-leaf-height * 0.5;
+        border-radius: #{$shoot-leaf-width * 0.5} 0 / #{$shoot-leaf-height * 0.5} 0;
+      }
+    }
+  }
+}
