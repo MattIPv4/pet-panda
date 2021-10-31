@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 $green-dark: #509D56;
 $green-light: #60BC67;
 $sprite-size: 96px;
@@ -26,7 +28,7 @@ $world-scale: 1;
   max-width: $world-scale * 100%;
   height: $world-scale * 100%;
   max-height: $world-scale * 100%;
-  transform: scale(1 / $world-scale);
+  transform: scale(math.div(1, $world-scale));
   transform-origin: 0 0;
   overflow: hidden;
 
@@ -136,14 +138,14 @@ $world-scale: 1;
     margin: auto;
 
     &:first-child {
-      margin-top: $bamboo-segment-end / 2;
+      margin-top: $bamboo-segment-end * 0.5;
     }
 
     &:before,
     &:after {
       position: absolute;
       content: "";
-      width: calc(100% + #{$bamboo-segment-padding / 2});
+      width: calc(100% + #{$bamboo-segment-padding * 0.5});
       height: $bamboo-segment-end;
       border-radius: $bamboo-border-radius;
       background: $bamboo-joint;
